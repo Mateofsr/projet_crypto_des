@@ -61,7 +61,7 @@ class DESTest {
 		int[][] expectedBlocs = {
 				{0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,1,1,0,
 				0,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,0,1,1,
-				1,1,},
+				1,1},
 				{0,1,1,1,0,0,1,0,0,1,1,0,1,1,0,0,0,1,1,0,0,1,0,0,0,0,1,0,0,0,0,
 				1,0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,1,1,
 				0,0},
@@ -76,5 +76,20 @@ class DESTest {
 		// WHEN the bloc is cut 64 by 64
 		// THEN
 		assertArrayEquals(expectedBlocs, des.decoupage(bytes));
+	}
+	
+	@Test
+	void testPermutation() {
+		// GIVEN a bloc of 64 elements
+		//and a permutation table with a length of 64
+		int[] bloc = {0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,
+				1,1,0,0,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,
+				0,1,1,1,1};
+		int[] expectedPermutedBloc = {1,1,0,1,1,1,1,1,0,1,0,0,0,0,0,0,1,1,0,1,
+				1,1,1,0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,1,0,0,
+				1,1,1,0,1,1,1,0,1,0,0,0,0};
+		// WHEN the bloc is permuted by the permutation table
+		// THEN
+		assertArrayEquals(expectedPermutedBloc, des.permutation(des.PERM_INITIAL,bloc));
 	}
 }
