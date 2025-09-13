@@ -41,21 +41,44 @@ public class DES {
 	
 	/**
 	 * Convert a list of integer into bits then string.
-	 * @param blocs of 0 and 1
+	 * @param bloc of 0 and 1
 	 * @return the cleared message
 	 */
-	public String bitsToString(int[] blocs) {
-		int length = blocs.length / 8;
+	public String bitsToString(int[] bloc) {
+		int length = bloc.length / 8;
         byte[] bytes = new byte[length];
 
         for (int i = 0; i < length; i++) {
             int value = 0;
             for (int j = 0; j < 8; j++) {
-                value = (value << 1) | blocs[i * 8 + j];
+                value = (value << 1) | bloc[i * 8 + j];
             }
             bytes[i] = (byte) value;
         }
         return new String(bytes, StandardCharsets.UTF_8);
+	}
+	
+	/**
+	 * Cut a list of integer into part of length {@link #TAILLE_BLOC}
+	 * @param bloc of integer to cut
+	 * @return blocs of list of size {@link #TAILLE_BLOC}
+	 */
+	public int[][] decoupage(int[] bloc) {
+		int fullBlocks = bloc.length / TAILLE_BLOC;
+	    int remainder = bloc.length % TAILLE_BLOC;
+	    int totalBlocks = fullBlocks + (remainder > 0 ? 1 : 0);
+	    int[][] blocs = new int[totalBlocks][];
+
+	    for (int i = 0; i < fullBlocks; i++) {
+	        blocs[i] = new int[TAILLE_BLOC];
+	        System.arraycopy(bloc, i * TAILLE_BLOC, blocs[i], 0, TAILLE_BLOC);
+	    }
+	    if (remainder > 0) {
+	        blocs[totalBlocks - 1] = new int[remainder];
+	        System.arraycopy(bloc, fullBlocks * TAILLE_BLOC,
+	        		blocs[totalBlocks - 1], 0, remainder);
+	    }
+		return blocs;
 	}
 	
 	private static void main(String[] args) {
