@@ -1,5 +1,13 @@
 package main;
 
+import java.awt.List;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/**
+ * DES (Data Encryption Standard) class
+ */
 public class DES {
 	private final int TAILLE_BLOC = 64;
 	private final int TAILLE_SOUS_BLOC = 32;
@@ -14,6 +22,12 @@ public class DES {
 			{60,52,44,36,28,20,12,4},
 			{62,54,46,38,30,22,14,6}};
 	
+	/**
+	 * Convert a String into bits and insert them in a list of
+	 * integer (only 0 and 1).
+	 * @param message to convert
+	 * @return bits of the converted string
+	 */
 	public int[] stringToBits(String message) {
 		byte[] bytes = message.getBytes();
 		int[] bits = new int[bytes.length * 8];
@@ -23,6 +37,25 @@ public class DES {
 	        }
 	    }
 		return bits;
+	}
+	
+	/**
+	 * Convert a list of integer into bits then string.
+	 * @param blocs of 0 and 1
+	 * @return the cleared message
+	 */
+	public String bitsToString(int[] blocs) {
+		int length = blocs.length / 8;
+        byte[] bytes = new byte[length];
+
+        for (int i = 0; i < length; i++) {
+            int value = 0;
+            for (int j = 0; j < 8; j++) {
+                value = (value << 1) | blocs[i * 8 + j];
+            }
+            bytes[i] = (byte) value;
+        }
+        return new String(bytes, StandardCharsets.UTF_8);
 	}
 	
 	private static void main(String[] args) {
