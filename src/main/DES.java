@@ -12,6 +12,7 @@ public class DES {
 	public final int TAILLE_BLOC = 64;
 	private final int TAILLE_SOUS_BLOC = 32;
 	private final int NB_RONDE = 1;
+	
 	public final int[] PERM_INITIAL = {
 			57,49,41,33,25,17,9,1,
 			59,51,43,35,27,19,11,3,
@@ -21,6 +22,15 @@ public class DES {
 			58,50,42,34,26,18,10,2,
 			60,52,44,36,28,20,12,4,
 			62,54,46,38,30,22,14,6};
+	
+	public int[] masterKey;
+	
+	public DES() {
+		masterKey  = new int[TAILLE_BLOC];
+		for (int i = 0; i < masterKey.length; i++) {
+            masterKey[i] = -1;
+        }
+	}
 	
 	/**
 	 * Convert a String into bits and insert them in a list of
@@ -96,6 +106,15 @@ public class DES {
 		return permutedBloc;
 	}
 	
+	public void setMasterKey() {
+		for (int i = 0; i < TAILLE_BLOC; i++) {
+			masterKey[i] = (int) (Math.random() * 2);
+		}
+	}
+	
+	public int[] getMasterKey() {
+		return masterKey;
+	}
 	private static void main(String[] args) {
 		
 	}

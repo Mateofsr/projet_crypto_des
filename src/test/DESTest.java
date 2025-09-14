@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -81,7 +82,7 @@ class DESTest {
 	@Test
 	void testPermutation() {
 		// GIVEN a bloc of 64 elements
-		//and a permutation table with a length of 64
+		// and a permutation table with a length of 64
 		int[] bloc = {0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,
 				1,1,0,0,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,
 				0,1,1,1,1};
@@ -91,5 +92,17 @@ class DESTest {
 		// WHEN the bloc is permuted by the permutation table
 		// THEN
 		assertArrayEquals(expectedPermutedBloc, des.permutation(des.PERM_INITIAL,bloc));
+	}
+	
+	@Test
+	void testSetMasterKey() {
+		// GIVEN a DES
+		// WHEN the master key is set
+		des.setMasterKey();
+		// THEN all the value of the master key are 0 or 1
+		for (int value : des.getMasterKey()) {
+			assertTrue(value == 0 | value == 1);
+		}
+		assertEquals(des.TAILLE_BLOC, des.getMasterKey().length);
 	}
 }
