@@ -75,7 +75,7 @@ class DESTest {
 				1}};
 		// WHEN the bloc is cut 64 by 64
 		// THEN
-		assertArrayEquals(expectedBlocs, des.decoupage(bytes));
+		assertArrayEquals(expectedBlocs, des.decoupage(bytes, des.TAILLE_BLOC));
 	}
 	
 	@Test

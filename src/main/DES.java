@@ -9,7 +9,7 @@ import java.util.Arrays;
  * DES (Data Encryption Standard) class
  */
 public class DES {
-	private final int TAILLE_BLOC = 64;
+	public final int TAILLE_BLOC = 64;
 	private final int TAILLE_SOUS_BLOC = 32;
 	private final int NB_RONDE = 1;
 	public final int[] PERM_INITIAL = {
@@ -59,23 +59,24 @@ public class DES {
 	}
 	
 	/**
-	 * Cut a list of integer into part of length {@link #TAILLE_BLOC}
+	 * Cut a list of integer into part of the specified length
 	 * @param bloc of integer to cut
-	 * @return blocs of list of size {@link #TAILLE_BLOC}
+	 * @param sizeBlocs the size of the new blocs
+	 * @return blocs of list of the specified length
 	 */
-	public int[][] decoupage(int[] bloc) {
-		int fullBlocks = bloc.length / TAILLE_BLOC;
-	    int remainder = bloc.length % TAILLE_BLOC;
+	public int[][] decoupage(int[] bloc, int sizeBlocs) {
+		int fullBlocks = bloc.length / sizeBlocs;
+	    int remainder = bloc.length % sizeBlocs;
 	    int totalBlocks = fullBlocks + (remainder > 0 ? 1 : 0);
 	    int[][] blocs = new int[totalBlocks][];
 
 	    for (int i = 0; i < fullBlocks; i++) {
-	        blocs[i] = new int[TAILLE_BLOC];
-	        System.arraycopy(bloc, i * TAILLE_BLOC, blocs[i], 0, TAILLE_BLOC);
+	        blocs[i] = new int[sizeBlocs];
+	        System.arraycopy(bloc, i * sizeBlocs, blocs[i], 0, sizeBlocs);
 	    }
 	    if (remainder > 0) {
 	        blocs[totalBlocks - 1] = new int[remainder];
-	        System.arraycopy(bloc, fullBlocks * TAILLE_BLOC,
+	        System.arraycopy(bloc, fullBlocks * sizeBlocs,
 	        		blocs[totalBlocks - 1], 0, remainder);
 	    }
 		return blocs;
