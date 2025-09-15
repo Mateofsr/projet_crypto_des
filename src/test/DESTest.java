@@ -118,4 +118,43 @@ class DESTest {
 		}
 		assertEquals(des.TAILLE_BLOC, des.getMasterKey().length);
 	}
+	
+	@Test
+	void testDecalleGauche() {
+		// GIVEN a bloc of n integer
+		int[] bloc = {0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,
+				1,1,0,0,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,
+				0,1,1,1,1};
+		int shifter = 1;
+		int [] expectedBloc = {1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,
+				1,1,0,0,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,
+				0,1,1,1,1,0};
+		// WHEN we shift to the left the bloc
+		// THEN
+		assertArrayEquals(expectedBloc, des.decalleGauche(bloc,shifter));
+		
+		// GIVEN a bloc of a size < of the shifter
+		int[] bloc2 = {0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,
+				1,1,0,0,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,
+				0,1,1,1,1};
+		int shifter2 = 132;
+		int [] expectedBloc2 = {1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,
+				1,1,0,0,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,
+				0,1,1,1,1,0,1,0,0};
+		// WHEN we shift to the left the bloc
+		// THEN
+		assertArrayEquals(expectedBloc2, des.decalleGauche(bloc2,shifter2));
+		
+		// GIVEN a bloc of a size = of the shifter
+		int[] bloc3 = {0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,
+				1,1,0,0,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,
+				0,1,1,1,1};
+		int shifter3 = 64;
+		int [] expectedBloc3 = {0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,
+				0,0,1,1,0,1,1,0,0,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,
+				1,1,0,1,1,0,1,1,1,1};
+		// WHEN we shift to the left the bloc
+		// THEN
+		assertArrayEquals(expectedBloc3, des.decalleGauche(bloc3,shifter3));
+	}
 }

@@ -137,6 +137,26 @@ public class DES {
 	public int[] getMasterKey() {
 		return masterKey;
 	}
+	
+	/**
+	 * Shift the bloc by nbCran on the left
+	 * @param bloc to shift
+	 * @param nbCran the number we have to shift
+	 * @return the bloc shifted
+	 */
+	public int[] decalleGauche(int[] bloc, int nbCran) {
+		int shifter = nbCran % bloc.length;
+		int[] blocShifted = new int[bloc.length];
+		
+		for (int i = shifter; i < bloc.length; i ++) {
+			blocShifted[i - shifter] = bloc[i];
+		}
+		for (int i = 0; i < shifter; i++) {
+			blocShifted[bloc.length-shifter+i] = bloc[i];
+		}
+		return blocShifted;
+	}
+	
 	private static void main(String[] args) {
 		
 	}
