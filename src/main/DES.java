@@ -157,6 +157,29 @@ public class DES {
 		return blocShifted;
 	}
 	
+	/**
+	 * Stick the bloc in the specified list.
+	 * @param blocs to stick
+	 * @return the bloc sticked
+	 */
+	public int[] recollageBloc(int[][] blocs) {
+		int finalSize = 0;
+		for (int[] b : blocs) {
+			finalSize += b.length;
+		}
+		int[] bloc = new int[finalSize];
+
+		int rangInFinalBloc = 0;
+		
+		for (int[] b : blocs) {
+			for (int i = 0; i < b.length; i++) {
+				bloc[rangInFinalBloc] = b[i];
+				rangInFinalBloc++;
+			}
+		}
+		return bloc;
+	}
+	
 	private static void main(String[] args) {
 		
 	}
