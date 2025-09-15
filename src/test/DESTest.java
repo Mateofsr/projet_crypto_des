@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -204,5 +205,31 @@ class DESTest {
 		// WHEN we stick the blocs to get just one
 		// THEN
 		assertArrayEquals(expectedBloc3, des.recollageBloc(blocs3));
+	}
+	
+	@Test
+	void testXor() {
+		// GIVEN two blocs
+		int[] bloc1 = {0,1,0,1,1,0};
+		int[] bloc2 = {0,1,0,1,0,1};
+		int[] expectedBloc = {0,0,0,0,1,1};
+		// WHEN we XOR the blocs
+		// THEN
+		assertArrayEquals(expectedBloc, des.xor(bloc1, bloc2));
+		
+		// GIVEN two long blocs
+		int[] bloc12 = {0,1,1,1,0,0,1,0,0,1,1,0,1,1,0,0,0,1,1,0,0,1,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,1,1,0,0};
+		int[] bloc22 = {0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,1,0,1,1,1,0,0,1,0,0,1,1,0,1,1,0,0,0,1,1,0,0,1,0,0,0,0,1,0,0,0,0,1};
+		int[] expectedBloc1 = {0,0,0,1,1,1,0,1,0,1,0,0,1,1,0,0,0,0,0,1,0,0,1,1,0,1,0,0,1,1,1,0,0,0,1,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,1,1,0,1};
+		// WHEN we XOR the blocs
+		// THEN
+		assertArrayEquals(expectedBloc1, des.xor(bloc12, bloc22));
+		
+		// GIVEN two blocs of different sizes
+		int[] bloc13 = {0,1,0,1,1,0};
+		int[] bloc23 = {0,1,0,1,0,1,1};
+		// WHEN we XOR the blocs
+		// THEN
+		assertNull(des.xor(bloc13, bloc23));
 	}
 }

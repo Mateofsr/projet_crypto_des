@@ -38,6 +38,12 @@ public class DES {
 			47,43,48,38,55,33,52,45,
 			41,49,35,28,31};
 	
+	public final int[] E = {
+			31,0,1,2,3,4,3,4,5,6,7,8,
+			7,8,9,10,11,12,11,12,13,14,15,16,
+			15,16,17,18,19,20,19,20,21,22,23,24,
+			23,24,25,26,27,28,27,28,29,30,31,0};
+	
 	public int[] masterKey;
 	
 	public DES() {
@@ -121,8 +127,8 @@ public class DES {
 	 * @return permuteBloc the bloc after the swapping
 	 */
 	public int[] permutation(int[] permutationTable, int[] bloc) {
-		int[] permutedBloc = new int[TAILLE_BLOC];
-		for (int i = 0; i < TAILLE_BLOC; i++) {
+		int[] permutedBloc = new int[permutationTable.length];
+		for (int i = 0; i < permutationTable.length; i++) {
 			permutedBloc[i] = bloc[permutationTable[i]];
 		}
 		return permutedBloc;
@@ -180,6 +186,23 @@ public class DES {
 		return bloc;
 	}
 	
+	/**
+	 * XOR bloc1 and bloc2. Create a new list, at each element if they are
+	 * equals add a 0 in the new list, 1 else;
+	 * @param bloc1 to XOR with bloc2
+	 * @param bloc2 to XOR with bloc1
+	 * @return the result of the XOR operation about the lists.
+	 */
+	public int[] xor(int[] bloc1, int[] bloc2) {
+		if (bloc1.length != bloc2.length) {
+			return null;
+		}
+		int[] newBloc = new int[bloc1.length];
+		for (int i = 0; i < bloc1.length; i++) {
+			newBloc[i] = bloc1[i] == bloc2[i] ? 0 : 1;
+		}
+		return newBloc;
+	}
 	private static void main(String[] args) {
 		
 	}
