@@ -22,6 +22,21 @@ public class DES {
 			58,50,42,34,26,18,10,2,
 			60,52,44,36,28,20,12,4,
 			62,54,46,38,30,22,14,6};
+	public final int[] PERM_CHOICE_1 = {
+			56,48,32,24,16,8,62,54,
+			46,38,30,22,14,0,57,49,
+			41,33,25,17,6,61,53,45,
+			37,29,21,9,1,58,50,42,
+			34,26,13,5,60,52,44,36,
+			28,18,10,2,59,51,43,35,
+			20,12,4,27,19,11,3};
+	public final int[] PERM_CHOICE_2 = {
+			13,16,10,23,0,4,2,27,14,
+			5,20,9,22,18,11,3,25,7,
+			15,6,26,19,12,1,40,51,30,
+			36,46,54,29,39,50,44,32,
+			47,43,48,38,55,33,52,45,
+			41,49,35,28,31};
 	
 	public int[] masterKey;
 	
@@ -75,20 +90,27 @@ public class DES {
 	 * @return blocs of list of the specified length
 	 */
 	public int[][] decoupage(int[] bloc, int sizeBlocs) {
-		int fullBlocks = bloc.length / sizeBlocs;
-	    int remainder = bloc.length % sizeBlocs;
-	    int totalBlocks = fullBlocks + (remainder > 0 ? 1 : 0);
-	    int[][] blocs = new int[totalBlocks][];
-
-	    for (int i = 0; i < fullBlocks; i++) {
+		if (sizeBlocs == 0  || bloc.length == 0) {
+			// TODO 
+		}
+		int remainer = bloc.length % sizeBlocs;
+		int nbBlocs = bloc.length / sizeBlocs + (remainer != 0 ? 1 : 0);
+		
+	    int[][] blocs = new int[nbBlocs][];
+	    int useBlocs = remainer == 0 ? nbBlocs : nbBlocs - 1;
+    	for (int i = 0; i < useBlocs; i++) {
 	        blocs[i] = new int[sizeBlocs];
-	        System.arraycopy(bloc, i * sizeBlocs, blocs[i], 0, sizeBlocs);
+	        for (int y = 0; y < sizeBlocs; y++) {
+	        	blocs[i][y] = bloc[i*sizeBlocs + y];
+	        }
 	    }
-	    if (remainder > 0) {
-	        blocs[totalBlocks - 1] = new int[remainder];
-	        System.arraycopy(bloc, fullBlocks * sizeBlocs,
-	        		blocs[totalBlocks - 1], 0, remainder);
-	    }
+    	if (remainer != 0) {
+    		int rang = nbBlocs - 1;
+            blocs[rang] = new int[sizeBlocs];
+            for (int i = 0; i < remainer; i++) {
+            	blocs[rang][i] = bloc[rang * sizeBlocs + i];
+            }
+    	}
 		return blocs;
 	}
 	

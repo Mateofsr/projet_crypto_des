@@ -73,10 +73,23 @@ class DESTest {
 				0,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,0,1,1,
 				1,1,},
 				{0,1,1,1,0,0,1,0,0,1,1,0,1,1,0,0,0,1,1,0,0,1,0,0,0,0,1,0,0,0,0,
-				1}};
+				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0}};
 		// WHEN the bloc is cut 64 by 64
 		// THEN
 		assertArrayEquals(expectedBlocs, des.decoupage(bytes, des.TAILLE_BLOC));
+	
+	
+		// GIVEN a bloc of the same length of the bloc size to cut
+		int[] bytes2 = {0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,1,1,0,
+				0,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,0,1,1,
+				1,1};
+		int[][] expectedBlocs2 = {{0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,1,1,0,
+				0,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,0,1,1,
+				1,1}};
+		// WHEN the bloc is cut
+		// THEN 
+		assertArrayEquals(expectedBlocs2, des.decoupage(bytes2, des.TAILLE_BLOC));
 	}
 	
 	@Test
