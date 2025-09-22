@@ -232,4 +232,21 @@ class DESTest {
 		// THEN
 		assertNull(des.xor(bloc13, bloc23));
 	}
+	
+	@Test
+	void testFonctionS() {
+		// GIVEN blocs of 6 bits
+		int[] blocs = {1,0,1,0,1,0,
+					   1,0,1,0,1,1,
+					   1,1,1,0,1,0,
+					   0,0,1,0,1,0,
+					   1,1,1,1,1,0,
+					   1,0,0,0,1,0,
+					   1,0,0,1,1,0,
+					   1,0,0,1,0,1};
+		int[] expectedResult = {0,1,1,0,1,0,0,1,1,0,1,0,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0};
+		// WHEN we applied the S function about it
+		// THEN
+		assertArrayEquals(expectedResult, des.fonctionS(blocs));
+	}
 }

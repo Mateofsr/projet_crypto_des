@@ -38,6 +38,12 @@ public class DES {
 			47,43,48,38,55,33,52,45,
 			41,49,35,28,31};
 	
+	public final int[][] S = {
+			{14,4,13,1,2,15,11,8,3,10,6,12,5,9,0,7},
+			{0,15,7,4,14,2,13,1,10,6,12,11,9,5,3,6},
+			{4,1,14,8,13,6,2,11,15,12,9,7,3,10,5,0},
+			{15,12,8,2,4,9,1,7,5,11,3,14,10,0,6,13}};
+	
 	public final int[] E = {
 			31,0,1,2,3,4,3,4,5,6,7,8,
 			7,8,9,10,11,12,11,12,13,14,15,16,
@@ -203,6 +209,45 @@ public class DES {
 		}
 		return newBloc;
 	}
+	
+	/**
+	 * Use the 1st and 6th bits of the block to determine the row. Use the 2nd,
+	 * 3rd, 4th, and 5th bits of the block to determine the column. With the
+	 * row and column, look up the corresponding value in the substitution
+	 * table. Encode this value as a 4-bit binary number.
+	 * @param blocs of bits
+	 * @return new blocs after the S step of the DES algorithms
+	 */
+	public int[] fonctionS(int[] blocs) {
+		int[] newBloc = new int[32];
+		int[] indicesLigne = {0,5};
+		int[] indicesColonne = {1,2,3,4};
+		
+		int indiceColonne;
+		int indiceLigne;
+		int value;
+		int indiceNewBloc = 0;
+		for (int i = 0; i < blocs.length; i+=6) {
+			indiceColonne = 0;
+			for (int y = 0; y < indicesColonne.length; y++) {
+				indiceColonne = (indiceColonne << 1) | blocs[i + indicesColonne[y]];
+	        }
+			
+			indiceLigne = 0;
+			for (int y = 0; y < indicesLigne.length; y++) {
+				indiceLigne = (indiceLigne << 1) | blocs[i + indicesLigne[y]];
+	        }
+			
+			value = S[indiceLigne][indiceColonne];
+		    for (int y = 3; y >= 0; y--) {
+		    	newBloc[indiceNewBloc+y] = value & 1;
+		        value >>= 1;
+		    }
+		    indiceNewBloc += 4;
+		}
+		return newBloc;
+	}
+	
 	private static void main(String[] args) {
 		
 	}
