@@ -252,7 +252,6 @@ public class DES {
 	
 	/**
 	 * Generate the key for the first iteration.
-	 * @param n
 	 */
 	public void genereCle() {
 		// permutation choice 1
