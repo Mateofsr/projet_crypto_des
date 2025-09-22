@@ -51,6 +51,7 @@ public class DES {
 			23,24,25,26,27,28,27,28,29,30,31,0};
 	
 	public int[] masterKey;
+	public int[][] tabCles;
 	
 	public DES() {
 		masterKey  = new int[TAILLE_BLOC];
