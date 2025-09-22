@@ -250,8 +250,17 @@ public class DES {
 		return newBloc;
 	}
 	
-	private static void main(String[] args) {
-		
 	/**
+	 * Generate the key for the first iteration.
+	 * @param n
+	 */
+	public void genereCle() {
+		// permutation choice 1
+		int[][] pc1 = decoupage(permutation(PERM_CHOICE_1,masterKey),28);
+		// shifting left
+		pc1[0] = decalleGauche(pc1[0],1);
+		pc1[1] = decalleGauche(pc1[1],1);
+		// sticking and permutation choice 2
+		permutation(PERM_CHOICE_2,recollageBloc(pc1));
 	}
 }
