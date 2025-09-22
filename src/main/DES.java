@@ -58,6 +58,7 @@ public class DES {
 		for (int i = 0; i < masterKey.length; i++) {
             masterKey[i] = -1;
         }
+		tabCles = new int[1][48];
 	}
 	
 	/**
@@ -251,5 +252,6 @@ public class DES {
 	
 	private static void main(String[] args) {
 		
+	/**
 	}
 }
