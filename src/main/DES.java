@@ -50,6 +50,13 @@ public class DES {
 			15,16,17,18,19,20,19,20,21,22,23,24,
 			23,24,25,26,27,28,27,28,29,30,31,0};
 	
+	public final int[] P = {
+			15,6,19,20,28,11,27,16,
+			0,14,22,25,4,17,30,9,
+			1,7,23,13,31,26,2,8,
+			18,12,29,5,21,10,3,24
+	};
+	
 	public int[] masterKey;
 	public int[][] tabCles;
 	
@@ -260,6 +267,11 @@ public class DES {
 		pc1[0] = decalleGauche(pc1[0],1);
 		pc1[1] = decalleGauche(pc1[1],1);
 		// sticking and permutation choice 2
-		permutation(PERM_CHOICE_2,recollageBloc(pc1));
+		// add to the list
+		tabCles[0] = permutation(PERM_CHOICE_2,recollageBloc(pc1));
+	}
+	
+	public int[] fonctionF(int[] blocD) {
+		return permutation(P,fonctionS(xor(permutation(E,blocD),tabCles[0])));
 	}
 }
