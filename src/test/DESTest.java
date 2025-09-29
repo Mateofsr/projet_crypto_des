@@ -236,7 +236,7 @@ class DESTest {
 	@Test
 	void testFonctionS() {
 		// GIVEN blocs of 6 bits
-		int[] blocs = {1,0,1,0,1,0,
+		int[] bloc = {1,0,1,0,1,0,
 					   1,0,1,0,1,1,
 					   1,1,1,0,1,0,
 					   0,0,1,0,1,0,
@@ -247,6 +247,6 @@ class DESTest {
 		int[] expectedResult = {0,1,1,0,1,0,0,1,1,0,1,0,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0};
 		// WHEN we applied the S function about it
 		// THEN
-		assertArrayEquals(expectedResult, des.fonctionS(blocs));
+		assertArrayEquals(expectedResult, des.fonctionS(bloc,0));
 	}
 }
