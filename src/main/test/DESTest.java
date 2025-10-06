@@ -1,4 +1,4 @@
-package test;
+package main.test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import main.DES;
+import main.chiffrement.DES;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class DESTest {

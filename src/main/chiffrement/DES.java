@@ -1,4 +1,4 @@
-package main;
+package main.chiffrement;
 
 import java.awt.List;
 import java.nio.charset.StandardCharsets;
