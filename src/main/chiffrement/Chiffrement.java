@@ -22,10 +22,10 @@ public class Chiffrement {
     }
     
     public int[] stringToBits(String message) {
-    	return des.stringToBits(message);
+    	return des.stringToBits(message, des.getEncodage());
     }
     
     public String bitsToString(int[] bloc) {
-    	return des.bitsToString(bloc);
+    	return des.bitsToString(bloc, des.getEncodage());
     }
 }

@@ -1,6 +1,7 @@
 package main.chiffrement;
 
 import java.awt.List;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +13,8 @@ public class DES {
 	public final int TAILLE_BLOC = 64;
 	public final int TAILLE_SOUS_BLOC = 32;
 	private final int NB_RONDE = 16;
+	
+	private String encodage;
 	
 	public final int[] PERM_INITIAL = {
 			57,49,41,33,25,17,9,1,
@@ -118,6 +121,7 @@ public class DES {
 	public int[][] tabCles;
 	
 	public DES() {
+		encodage = "UTF-32BE";
 		masterKey  = new int[TAILLE_BLOC];
 		for (int i = 0; i < masterKey.length; i++) {
             masterKey[i] = -1;
@@ -134,8 +138,8 @@ public class DES {
 	 * @param message to convert
 	 * @return bits of the converted string
 	 */
-	public int[] stringToBits(String message) {
-		byte[] bytes = message.getBytes(StandardCharsets.UTF_16BE);
+	public int[] stringToBits(String message, String encodage) {
+		byte[] bytes = message.getBytes(Charset.forName(encodage));
 		int[] bits = new int[bytes.length * 8];
 		for (int i = 0; i < bytes.length; i++) {
 	        for (int j = 0; j < 8; j++) {
@@ -150,7 +154,7 @@ public class DES {
 	 * @param bloc of 0 and 1
 	 * @return the cleared message
 	 */
-	public String bitsToString(int[] bloc) {
+	public String bitsToString(int[] bloc, String encodage) {
 		int length = bloc.length / 8;
         byte[] bytes = new byte[length];
 
@@ -161,7 +165,7 @@ public class DES {
             }
             bytes[i] = (byte) value;
         }
-        return new String(bytes, StandardCharsets.UTF_16BE);
+        return new String(bytes, Charset.forName(encodage));
 	}
 	
 	/**
@@ -341,7 +345,7 @@ public class DES {
 	 * @return message encrypted
 	 */
 	public int[] crypte(String message) {
-		int[] monTextEnBits = stringToBits(message);
+		int[] monTextEnBits = stringToBits(message,encodage);
 		
 		int[][] blocs = decoupage(monTextEnBits,TAILLE_BLOC);
 		int[][] blocsFinaux = new int[blocs.length][TAILLE_BLOC];
@@ -383,6 +387,15 @@ public class DES {
 			int[][] inversementDG = new int[][] {blocDG[1],blocDG[0]};
 			blocsFinaux[i] = permutation(PERM_INVERSE,recollageBloc(inversementDG));
 		}
-		return bitsToString(recollageBloc(blocsFinaux));
+		return bitsToString(recollageBloc(blocsFinaux), encodage);
+	}
+	
+	
+	public void setEncodage(String encodage) {
+		this.encodage = encodage;
+	}
+	
+	public String getEncodage() {
+		return encodage;
 	}
 }
