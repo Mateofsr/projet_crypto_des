@@ -123,6 +123,9 @@ public class DES {
             masterKey[i] = -1;
         }
 		tabCles = new int[NB_RONDE][48];
+		for (int i = 0; i < NB_RONDE; i++) {
+			genereCle(i);
+		}
 	}
 	
 	/**
@@ -315,7 +318,7 @@ public class DES {
 	}
 	
 	/**
-	 * Generate the key for the first iteration.
+	 * Generate the key for an iteration.
 	 */
 	public void genereCle(int indice) {
 		// permutation choice 1
@@ -349,7 +352,7 @@ public class DES {
 			int [] blocIntermediaire = new int[TAILLE_SOUS_BLOC];
 			for (int y  = 0; y < NB_RONDE; y++) {
 				blocIntermediaire = blocDG[1];
-				genereCle(y);
+				//genereCle(y);
 				blocDG[1] = xor(blocDG[0],fonctionF(blocDG[1],y));
 				blocDG[0] = blocIntermediaire;
 			}

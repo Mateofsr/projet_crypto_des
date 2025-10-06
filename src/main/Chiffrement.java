@@ -3,19 +3,18 @@ package main;
 public class Chiffrement {
 	
 	/**
-	 * DES encryption
+	 * Triple DES encryption
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		
-		DES des = new DES();
-		
+		TripleDES tDES = new TripleDES();
 		String message = "Je pense avoir fait du bon travail!";
-		// Cryptage
-		int[] messageCryte = des.crypte(message);
+		// Encrypt
+		int[] encryptedMessage = tDES.crypteTripleDES(message);
+		// Decipher
+		String clearMessage = tDES.decryptTripleDES(encryptedMessage);
 		
-		// Decryptage
-		String messageDecrypte = des.decrypte(messageCryte);
-		System.out.println(messageDecrypte);
+		System.out.println(clearMessage);
 	}
 }
