@@ -135,7 +135,7 @@ public class DES {
 	 * @return bits of the converted string
 	 */
 	public int[] stringToBits(String message) {
-		byte[] bytes = message.getBytes();
+		byte[] bytes = message.getBytes(StandardCharsets.UTF_16BE);
 		int[] bits = new int[bytes.length * 8];
 		for (int i = 0; i < bytes.length; i++) {
 	        for (int j = 0; j < 8; j++) {
@@ -161,7 +161,7 @@ public class DES {
             }
             bytes[i] = (byte) value;
         }
-        return new String(bytes, StandardCharsets.UTF_8);
+        return new String(bytes, StandardCharsets.UTF_16BE);
 	}
 	
 	/**
