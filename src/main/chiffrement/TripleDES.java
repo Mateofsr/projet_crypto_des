@@ -38,4 +38,9 @@ public class TripleDES {
 		String messageDecrypteK3 = desK1.decrypte(messageDecrypteK2);
 		return messageDecrypteK3;
 	}
+	
+	public void setEncodage(String encodage) {
+		desK1.setEncodage(encodage);
+		desK2.setEncodage(encodage);
+	}
 }

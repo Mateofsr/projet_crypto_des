@@ -11,11 +11,13 @@ import java.awt.event.ActionListener;
 public class FenetrePrincipale extends JFrame {
     private JTextArea texteClair;
     private JTextArea texteCrypte;
+    private JTextArea texteDecrypte;
     private JButton boutonCrypter;
     private JButton boutonDecrypter;
     private JButton boutonClear;
     private JComboBox<String> modeChoix;
-    private JLabel texteDecrypte;
+    private JComboBox<String> encodageChoix;
+    
 
     private Chiffrement chiffrement;
     private int[] encryptedMessage;
@@ -26,14 +28,15 @@ public class FenetrePrincipale extends JFrame {
 
         texteClair = new JTextArea(5, 30);
         texteCrypte = new JTextArea(5, 30);
+        texteDecrypte = new JTextArea(5, 30);
         texteCrypte.setEditable(false);
+        texteDecrypte.setEditable(false);
 
         boutonCrypter = new JButton("Crypter");
         boutonDecrypter = new JButton("Décrypter");
         boutonClear = new JButton("Nettoyer");
         modeChoix = new JComboBox<>(new String[]{"DES", "TripleDES"});
-
-        texteDecrypte = new JLabel();
+        encodageChoix = new JComboBox<>(new String[]{"UTF-8", "UTF-16BE", "UTF-32BE"});
         
         setLayout(new BorderLayout());
         JPanel panelCentre = new JPanel(new GridLayout(3, 3, 10, 10));
@@ -42,10 +45,11 @@ public class FenetrePrincipale extends JFrame {
         panelCentre.add(new JLabel("Texte chiffré :"));
         panelCentre.add(new JScrollPane(texteCrypte));
         panelCentre.add(new JLabel("Texte déchiffré :"));
-        panelCentre.add(texteDecrypte);
+        panelCentre.add(new JScrollPane(texteDecrypte));
         
         JPanel panelBas = new JPanel();
         panelBas.add(modeChoix);
+        panelBas.add(encodageChoix);
         panelBas.add(boutonCrypter);
         panelBas.add(boutonDecrypter);
         panelBas.add(boutonClear);
@@ -59,6 +63,7 @@ public class FenetrePrincipale extends JFrame {
                 String texte = texteClair.getText();
                 if (!texte.isEmpty()) {
 	                String mode = (String) modeChoix.getSelectedItem();
+	                chiffrement.setEncodage((String) encodageChoix.getSelectedItem(), mode);
 	                encryptedMessage = chiffrement.crypter(texte, mode);
 	                texteCrypte.setText(chiffrement.bitsToString(encryptedMessage));
                 }
@@ -71,6 +76,7 @@ public class FenetrePrincipale extends JFrame {
                 String texte = texteCrypte.getText();
                 if (!texte.isEmpty()) {
 	                String mode = (String) modeChoix.getSelectedItem();
+	                chiffrement.setEncodage((String) encodageChoix.getSelectedItem(), mode);
 	                String resultat = chiffrement.decrypter(encryptedMessage,mode);
 	                texteDecrypte.setText(resultat);
                 }

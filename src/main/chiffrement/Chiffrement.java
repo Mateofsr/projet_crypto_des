@@ -28,4 +28,12 @@ public class Chiffrement {
     public String bitsToString(int[] bloc) {
     	return des.bitsToString(bloc, des.getEncodage());
     }
+    
+    public void setEncodage(String encodage, String mode) {
+    	if (mode.equals("DES")) {
+    		des.setEncodage(encodage);
+    	} else {
+    		tripleDes.setEncodage(encodage);
+    	}
+    }
 }
