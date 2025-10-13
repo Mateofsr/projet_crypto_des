@@ -21,8 +21,8 @@ public class TripleDES {
 	 * @return message ciphered
 	 */
 	public int[] crypteTripleDES(String message) {
-		int[] messageCryteK1 = desK1.crypte(message);
-		String messageCrypteK2 = desK2.decrypte(messageCryteK1);
+		int[] messageCryteK1 = desK1.crypte(desK1.stringToBits(message,desK1.getEncodage()));
+		int[] messageCrypteK2 = desK2.decrypte(messageCryteK1);
 		int[] messageCrypteK3 = desK1.crypte(messageCrypteK2);
 		return messageCrypteK3;
 	}
@@ -33,10 +33,10 @@ public class TripleDES {
 	 * @return clear message
 	 */
 	public String decryptTripleDES(int[] messageCrypteK3) {
-		String messageDecrypteK1 = desK1.decrypte(messageCrypteK3); 
+		int[] messageDecrypteK1 = desK1.decrypte(messageCrypteK3); 
 		int[] messageDecrypteK2 = desK2.crypte(messageDecrypteK1);
-		String messageDecrypteK3 = desK1.decrypte(messageDecrypteK2);
-		return messageDecrypteK3;
+		int[] messageDecrypteK3 = desK1.decrypte(messageDecrypteK2);
+		return desK1.bitsToString(messageDecrypteK3, desK1.getEncodage());
 	}
 	
 	/**

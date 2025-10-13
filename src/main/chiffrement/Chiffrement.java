@@ -7,26 +7,16 @@ public class Chiffrement {
 
     public int[] crypter(String message, String mode) {
         if (mode.equals("DES")) {
-            return des.crypte(message);
-        } else {
-            return tripleDes.crypteTripleDES(message);
+            return des.crypte(des.stringToBits(message,des.getEncodage()));
         }
+        return tripleDes.crypteTripleDES(message);
     }
 
     public String decrypter(int[] encryptedMessage, String mode) {
         if (mode.equals("DES")) {
-            return des.decrypte(encryptedMessage);
-        } else {
-            return tripleDes.decryptTripleDES(encryptedMessage);
+            return des.bitsToString(des.decrypte(encryptedMessage), des.getEncodage());
         }
-    }
-    
-    public int[] stringToBits(String message) {
-    	return des.stringToBits(message, des.getEncodage());
-    }
-    
-    public String bitsToString(int[] bloc) {
-    	return des.bitsToString(bloc, des.getEncodage());
+        return tripleDes.decryptTripleDES(encryptedMessage);
     }
     
     public void setEncodage(String encodage, String mode) {
@@ -35,5 +25,46 @@ public class Chiffrement {
     	} else {
     		tripleDes.setEncodage(encodage);
     	}
+    }
+    
+    /**
+     * Converts the list into a string.
+     * @param bloc to transform
+     * @return string representing the bloc as a string
+     */
+    public String toString(int[] bloc) {
+    	if (bloc == null || bloc.length == 0) {
+            return "";
+        }
+    	StringBuilder sb = new StringBuilder();
+    	for (int i = 0; i < bloc.length; i++) {
+    		sb.append(bloc[i]);
+    		if (i < bloc.length-1) {
+    			sb.append(",");
+    		}
+    	}
+    	return sb.toString();
+    }
+
+    /**
+     * Converts a character string into a list of integers.
+     * @param s the string to convert
+     * @return the expected list of integer
+     */
+    public int[] fromString(String s) throws IllegalArgumentException{
+        if (s == null || s.isEmpty()) {
+            return new int[0];
+        }
+
+        String[] parts = s.split(",");
+        int[] result = new int[parts.length];
+
+        for (int i = 0; i < parts.length; i++) {
+            result[i] = Integer.parseInt(parts[i].trim());
+            if (result[i] != 0 && result[i] != 1) {
+            	throw new IllegalArgumentException();
+            }
+        }
+        return result;
     }
 }

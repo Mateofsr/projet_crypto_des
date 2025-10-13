@@ -123,9 +123,7 @@ public class DES {
 	public DES() {
 		encodage = "UTF-32BE";
 		masterKey  = new int[TAILLE_BLOC];
-		for (int i = 0; i < masterKey.length; i++) {
-            masterKey[i] = -1;
-        }
+		setMasterKey();
 		tabCles = new int[NB_RONDE][48];
 		for (int i = 0; i < NB_RONDE; i++) {
 			genereCle(i);
@@ -323,6 +321,7 @@ public class DES {
 	
 	/**
 	 * Generate the key for an iteration.
+	 * @param indice 
 	 */
 	public void genereCle(int indice) {
 		// permutation choice 1
@@ -344,9 +343,7 @@ public class DES {
 	 * @param message to encrypt
 	 * @return message encrypted
 	 */
-	public int[] crypte(String message) {
-		int[] monTextEnBits = stringToBits(message,encodage);
-		
+	public int[] crypte(int[] monTextEnBits) {
 		int[][] blocs = decoupage(monTextEnBits,TAILLE_BLOC);
 		int[][] blocsFinaux = new int[blocs.length][TAILLE_BLOC];
 		
@@ -370,7 +367,7 @@ public class DES {
 	 * @param messageCrypte
 	 * @return Plain text
 	 */
-	public String decrypte(int[] messageCrypte) {
+	public int[] decrypte(int[] messageCrypte) {
 		int[][] blocs = decoupage(messageCrypte,TAILLE_BLOC);
 		int[][] blocsFinaux = new int[blocs.length][TAILLE_BLOC];
 		
@@ -386,7 +383,7 @@ public class DES {
 			int[][] inversementDG = new int[][] {blocDG[1],blocDG[0]};
 			blocsFinaux[i] = permutation(PERM_INVERSE,recollageBloc(inversementDG));
 		}
-		return bitsToString(recollageBloc(blocsFinaux), encodage);
+		return recollageBloc(blocsFinaux);
 	}
 	
 	

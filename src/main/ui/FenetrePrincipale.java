@@ -29,7 +29,6 @@ public class FenetrePrincipale extends JFrame {
         texteClair = new JTextArea(5, 30);
         texteCrypte = new JTextArea(5, 30);
         texteDecrypte = new JTextArea(5, 30);
-        texteCrypte.setEditable(false);
         texteDecrypte.setEditable(false);
 
         boutonCrypter = new JButton("Crypter");
@@ -65,7 +64,7 @@ public class FenetrePrincipale extends JFrame {
 	                String mode = (String) modeChoix.getSelectedItem();
 	                chiffrement.setEncodage((String) encodageChoix.getSelectedItem(), mode);
 	                encryptedMessage = chiffrement.crypter(texte, mode);
-	                texteCrypte.setText(chiffrement.bitsToString(encryptedMessage));
+	                texteCrypte.setText(chiffrement.toString(encryptedMessage));
                 }
             }
         });
@@ -77,8 +76,12 @@ public class FenetrePrincipale extends JFrame {
                 if (!texte.isEmpty()) {
 	                String mode = (String) modeChoix.getSelectedItem();
 	                chiffrement.setEncodage((String) encodageChoix.getSelectedItem(), mode);
-	                String resultat = chiffrement.decrypter(encryptedMessage,mode);
-	                texteDecrypte.setText(resultat);
+	                try {
+	                	String resultat = chiffrement.decrypter(chiffrement.fromString(texte),mode);
+	                	texteDecrypte.setText(resultat);
+	                } catch (IllegalArgumentException e1) {
+	                	FenetreErreur.showError("La liste crypté n'est pas décryptable, un élément a probablement été altéré!");
+	                }
                 }
             }
         });
