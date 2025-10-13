@@ -38,13 +38,37 @@ public class FenetrePrincipale extends JFrame {
         encodageChoix = new JComboBox<>(new String[]{"UTF-8", "UTF-16BE", "UTF-32BE"});
         
         setLayout(new BorderLayout());
-        JPanel panelCentre = new JPanel(new GridLayout(3, 3, 10, 10));
-        panelCentre.add(new JLabel("Texte clair :"));
-        panelCentre.add(new JScrollPane(texteClair));
-        panelCentre.add(new JLabel("Texte chiffré :"));
-        panelCentre.add(new JScrollPane(texteCrypte));
-        panelCentre.add(new JLabel("Texte déchiffré :"));
-        panelCentre.add(new JScrollPane(texteDecrypte));
+        
+        JPanel panelCentre = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panelCentre.add(new JLabel("Texte clair :", SwingConstants.CENTER), gbc);
+
+        gbc.gridx = 1;
+        panelCentre.add(new JScrollPane(texteClair), gbc);
+
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panelCentre.add(new JLabel("Texte chiffré :", SwingConstants.CENTER), gbc);
+
+        gbc.gridx = 1;
+        panelCentre.add(new JScrollPane(texteCrypte), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        panelCentre.add(new JLabel("Texte déchiffré :", SwingConstants.CENTER), gbc);
+
+        gbc.gridx = 1;
+        panelCentre.add(new JScrollPane(texteDecrypte), gbc);
         
         JPanel panelBas = new JPanel();
         panelBas.add(modeChoix);
