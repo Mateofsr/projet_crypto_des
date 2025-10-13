@@ -39,6 +39,10 @@ public class TripleDES {
 		return messageDecrypteK3;
 	}
 	
+	/**
+	 * Changes the encoding of the character strings used.
+	 * @param encodage
+	 */
 	public void setEncodage(String encodage) {
 		desK1.setEncodage(encodage);
 		desK2.setEncodage(encodage);

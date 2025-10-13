@@ -157,9 +157,9 @@ public class DES {
 	public String bitsToString(int[] bloc, String encodage) {
 		int length = bloc.length / 8;
         byte[] bytes = new byte[length];
-
+        int value;
         for (int i = 0; i < length; i++) {
-            int value = 0;
+            value = 0;
             for (int j = 0; j < 8; j++) {
                 value = (value << 1) | bloc[i * 8 + j];
             }
@@ -356,7 +356,6 @@ public class DES {
 			int [] blocIntermediaire = new int[TAILLE_SOUS_BLOC];
 			for (int y  = 0; y < NB_RONDE; y++) {
 				blocIntermediaire = blocDG[1];
-				//genereCle(y);
 				blocDG[1] = xor(blocDG[0],fonctionF(blocDG[1],y));
 				blocDG[0] = blocIntermediaire;
 			}
