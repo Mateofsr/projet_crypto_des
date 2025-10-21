@@ -1,10 +1,6 @@
 package main.chiffrement;
 
-import java.awt.List;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * DES (Data Encryption Standard) class
@@ -136,7 +132,7 @@ public class DES {
 	 * @param message to convert
 	 * @return bits of the converted string
 	 */
-	public int[] stringToBits(String message, String encodage) {
+	public int[] stringToBits(String message) {
 		byte[] bytes = message.getBytes(Charset.forName(encodage));
 		int[] bits = new int[bytes.length * 8];
 		for (int i = 0; i < bytes.length; i++) {
@@ -152,9 +148,9 @@ public class DES {
 	 * @param bloc of 0 and 1
 	 * @return the cleared message
 	 */
-	public String bitsToString(int[] bloc, String encodage) {
+	public String bitsToString(int[] bloc) {
 		int length = bloc.length / 8;
-        byte[] bytes = new byte[length];
+		byte[] bytes = new byte[length];
         int value;
         for (int i = 0; i < length; i++) {
             value = 0;
@@ -163,7 +159,20 @@ public class DES {
             }
             bytes[i] = (byte) value;
         }
-        return new String(bytes, Charset.forName(encodage));
+        return removeNullCharacters(new String(bytes, Charset.forName(encodage)));
+	}
+	
+	/**
+	 * Removes null characters (“\u0000”) at the end of the string.
+	 * @param message the text with nulls characters
+	 * @return message without null characters
+	 */
+	private String removeNullCharacters(String message) {
+	    int end = message.length();
+	    while (end > 0 && message.charAt(end - 1) == '\u0000') {
+	        end--;
+	    }
+	    return message.substring(0, end);
 	}
 	
 	/**

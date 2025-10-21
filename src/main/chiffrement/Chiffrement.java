@@ -7,14 +7,14 @@ public class Chiffrement {
 
     public int[] crypter(String message, String mode) {
         if (mode.equals("DES")) {
-            return des.crypte(des.stringToBits(message,des.getEncodage()));
+            return des.crypte(des.stringToBits(message));
         }
         return tripleDes.crypteTripleDES(message);
     }
 
     public String decrypter(int[] encryptedMessage, String mode) {
         if (mode.equals("DES")) {
-            return des.bitsToString(des.decrypte(encryptedMessage), des.getEncodage());
+            return des.bitsToString(des.decrypte(encryptedMessage));
         }
         return tripleDes.decryptTripleDES(encryptedMessage);
     }

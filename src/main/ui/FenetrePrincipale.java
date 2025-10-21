@@ -8,6 +8,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Window containing all of the application's features. It allows you to
+ * encrypt and decipher a message by changing the encryption type (DES or triple
+ * DES) and encoding (utf-8, utf-16, etc.).
+ */
 public class FenetrePrincipale extends JFrame {
     private JTextArea texteClair;
     private JTextArea texteCrypte;
@@ -80,6 +85,7 @@ public class FenetrePrincipale extends JFrame {
         add(panelCentre, BorderLayout.CENTER);
         add(panelBas, BorderLayout.SOUTH);
 
+        // Encryption of the message enter in the dedicated text field.
         boutonCrypter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -93,6 +99,7 @@ public class FenetrePrincipale extends JFrame {
             }
         });
 
+        // Decryption of the bit list in the dedicated text field.
         boutonDecrypter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -110,7 +117,7 @@ public class FenetrePrincipale extends JFrame {
             }
         });
 
-        
+        // Clear all the text field
         boutonClear.addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
